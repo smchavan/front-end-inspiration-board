@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import { useState } from "react";
+import "./NewCard.css"
 
 const INITIAL_CARD_DATA = {
   message: "test",
@@ -16,9 +17,13 @@ const NewCardForm = (props) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    props.addCard(formFields.message)
-    setFormFields(INITIAL_CARD_DATA);
-  };
+    if (formFields.length < 1 || formFields.length > 10){
+      alert("A valid card must have between one and forty characters")
+    } else {
+      props.addCard(formFields.message)
+      setFormFields(INITIAL_CARD_DATA);
+  }
+}
   return(
     <section className="new_card_form_container">
       <h2>Create a New Card</h2>
@@ -32,7 +37,10 @@ const NewCardForm = (props) => {
             onChange={handleMessageChange}/>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <h4>Preview:{formFields.message}</h4>
+        </div>
+        <div>
+          <button className="new_card_form_submit" type="submit">Submit</button>
         </div>
       </form>
     </section>
