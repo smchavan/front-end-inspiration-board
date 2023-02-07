@@ -1,0 +1,13 @@
+.new_card_form_form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+.new_card_form_submit {
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: .5em;
+    margin-top: 1em;
+  }
