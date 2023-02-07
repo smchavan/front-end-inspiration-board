@@ -9,12 +9,14 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>CheerUp Inspiration Board</h1>
-        
-        
+      </header>  
+      <body> 
         <Card/>
         <NewCard/>
-        
-      </header>
+      </body> 
+      <footer>
+        <p4>Made by Anna, Larissa, Melody, Supriya </p4>
+      </footer>
     </div>
   );
 }
