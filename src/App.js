@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./components/cards/Card";
 import NewCard from "./components/cards/NewCard";
-import BoardsList from "./components/boards/BoardsList";
+import BoardsDropDown from "./components/boards/BoardsDropDown";
+import SelectedBoard from "./components/boards/SelectedBoard";
+import NewBoardForm from "./components/boards/NewBoardForm";
+//import CardList from './components/cards/CardList'
 import axios from "axios";
 import CardList from "./components/cards/CardList";
 
@@ -38,7 +41,6 @@ function App() {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
       .then((response) => {
-        console.log(response.data);
         setBoardsData(response.data);
       })
       .catch((error) => {
@@ -80,8 +82,21 @@ function App() {
       <header className="App-header">
         <h1>CheerUp Inspiration Board</h1>
       </header>
-      <BoardsList boardsData={boardsData}></BoardsList>
-      <CardList cardsData={cardsData} likeCard={likeCard} deleteCard={deleteCard}/>
+      <section>
+        <header>
+          <h3>Boards</h3>
+        </header>
+        <BoardsDropDown boardsData={boardsData}></BoardsDropDown>
+        <header>
+          <h3>Selected Board</h3>
+        </header>
+        <SelectedBoard></SelectedBoard>
+        <header>
+          <h3>Create a New Board</h3>
+        </header>
+        <NewBoardForm></NewBoardForm>
+      </section>
+      <CardList cardsData={cardsData} likeCard={likeCard} />
       <NewCard />
       
       <footer>
