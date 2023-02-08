@@ -15,6 +15,7 @@ const BoardsDropDown = (props) => {
     props.updateSelectedBoardMessage(selectedBoardMessage);
   };
 
+  // gather board titles as options in Boards Drop Down Table
   const boardTitles = props.boardsData.map((board) => {
     return (
       <option key={board.id} value={board.title}>
@@ -23,6 +24,7 @@ const BoardsDropDown = (props) => {
     );
   });
 
+  // Display Boards Drop Down Table for user to select
   return (
     <form>
       <label htmlFor="boards">Choose a board:</label>
