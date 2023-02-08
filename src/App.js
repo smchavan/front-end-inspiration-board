@@ -26,6 +26,13 @@ function App() {
       likes_count: 4,
       message: "Puzzles are also Fun like Legos",
     },
+    {
+      board_id: 1,
+      board_title: "Legos are Fun!",
+      id: 3,
+      likes_count: 4,
+      message: "test delete",
+    },
   ]);
 
   const getAllCards = (boardId) => {
@@ -51,6 +58,11 @@ function App() {
     });
 
     setCardsData(cards);
+  };
+  const deleteCard = () => {
+    const cards = cardsData.filter((card) => {
+      return card.card_id !== 3;
+    });
   };
   // boards data
   const [boardsData, setBoardsData] = useState([]);
@@ -100,8 +112,7 @@ function App() {
       </section>
       <CardList cardsData={cardsData} likeCard={likeCard} />
       <NewCard />
-      <Card />
-      <NewCard />
+
       <footer>
         <h4>Made by Anna, Larissa, Melody, Supriya </h4>
       </footer>
