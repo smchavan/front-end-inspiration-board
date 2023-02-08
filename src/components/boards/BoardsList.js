@@ -2,8 +2,6 @@ import PropTypes from "prop-types";
 import BoardDropDown from "./BoardDropDown";
 
 const BoardsList = (props) => {
-  // update boards data
-  props.getAllBoards();
   const boards = props.boardsData.map((board) => {
     return (
       <li key={board.id}>
@@ -21,10 +19,6 @@ const BoardsList = (props) => {
       <ul>{boards}</ul>
     </section>
   );
-};
-
-BoardsList.propTypes = {
-  getAllBoards: PropTypes.func.isRequired,
 };
 
 export default BoardsList;
