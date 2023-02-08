@@ -5,10 +5,26 @@ import NewCard from "./components/cards/NewCard";
 import BoardsList from "./components/boards/BoardsList";
 //import CardList from './components/cards/CardList'
 import axios from "axios";
+import CardList from "./components/cards/CardList";
 
 function App() {
-  // create states for boards and cards data
-  const [cardsData, setCardsData] = useState([]);
+  const [cardsData, setCardsData] = useState([
+    {
+      board_id: 1,
+      board_title: "Legos are Fun!",
+      id: 1,
+      likes_count: 3,
+      message: "Lego Lego Lego Fun",
+    },
+    {
+      board_id: 1,
+      board_title: "Legos are Fun!",
+      id: 2,
+      likes_count: 4,
+      message: "Puzzles are also Fun like Legos",
+    },
+  ]);
+
   const [boardsData, setBoardsData] = useState([]);
 
   // initialize boards dataset upon mounting
@@ -24,7 +40,6 @@ function App() {
       });
   }, []);
 
-  // Function to display card data
   const getAllCards = (boardId) => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/boards/${boardId}/cards`)
@@ -37,12 +52,27 @@ function App() {
       });
   };
 
+  const likeCard = () => {
+    const cards = cardsData.map((card) => {
+      if (card.id === 2) {
+        card.likes_count += 1;
+        return card;
+      } else {
+        return card;
+      }
+    });
+
+    setCardsData(cards);
+  };
+
   return (
     <main className="App">
       <header className="App-header">
         <h1>CheerUp Inspiration Board</h1>
       </header>
       <BoardsList boardsData={boardsData}></BoardsList>
+      <CardList cardsData={cardsData} likeCard={likeCard} />
+      <NewCard />
       <Card />
       <NewCard />
       <footer>
