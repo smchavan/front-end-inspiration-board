@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./NewCard.css"
 
 const INITIAL_CARD_DATA = {
-  message: "test",
+  message: "",
 };
 
 const NewCardForm = (props) => {
