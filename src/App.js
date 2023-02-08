@@ -10,6 +10,7 @@ import axios from "axios";
 import CardList from "./components/cards/CardList";
 
 function App() {
+  // cards data
   const [cardsData, setCardsData] = useState([
     {
       board_id: 1,
@@ -26,20 +27,6 @@ function App() {
       message: "Puzzles are also Fun like Legos",
     },
   ]);
-
-  const [boardsData, setBoardsData] = useState([]);
-
-  // initialize boards dataset upon mounting
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
-      .then((response) => {
-        setBoardsData(response.data);
-      })
-      .catch((error) => {
-        console.error(error.response.data.message);
-      });
-  }, []);
 
   const getAllCards = (boardId) => {
     axios
@@ -65,6 +52,27 @@ function App() {
 
     setCardsData(cards);
   };
+  // boards data
+  const [boardsData, setBoardsData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
+      .then((response) => {
+        setBoardsData(response.data);
+      })
+      .catch((error) => {
+        console.error(error.response.data.message);
+      });
+  }, []);
+
+  // selected boards data
+  const [selectedBoardMessage, setSelectedBoardMessage] = useState(
+    "Select a Board from the Board List!"
+  );
+  const updateSelectedBoardMessage = (message) => {
+    setSelectedBoardMessage(message);
+  };
 
   return (
     <main className="App">
@@ -75,11 +83,16 @@ function App() {
         <header>
           <h3>Boards</h3>
         </header>
-        <BoardsDropDown boardsData={boardsData}></BoardsDropDown>
+        <BoardsDropDown
+          boardsData={boardsData}
+          updateSelectedBoardMessage={updateSelectedBoardMessage}
+        ></BoardsDropDown>
         <header>
           <h3>Selected Board</h3>
         </header>
-        <SelectedBoard></SelectedBoard>
+        <SelectedBoard
+          selectedBoardMessage={selectedBoardMessage}
+        ></SelectedBoard>
         <header>
           <h3>Create a New Board</h3>
         </header>

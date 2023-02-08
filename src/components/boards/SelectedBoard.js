@@ -1,5 +1,5 @@
-const SelectedBoard = () => {
-  return <p>test</p>;
+const SelectedBoard = (props) => {
+  return <p>{props.selectedBoardMessage}</p>;
 };
 
 export default SelectedBoard;
