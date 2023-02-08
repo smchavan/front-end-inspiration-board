@@ -3,7 +3,6 @@ import "./App.css";
 import Card from "./components/cards/Card";
 import NewCard from "./components/cards/NewCard";
 import BoardsList from "./components/boards/BoardsList";
-//import CardList from './components/cards/CardList'
 import axios from "axios";
 import CardList from "./components/cards/CardList";
 
@@ -22,6 +21,13 @@ function App() {
       id: 2,
       likes_count: 4,
       message: "Puzzles are also Fun like Legos",
+    },
+    {
+      board_id: 1,
+      board_title: "Legos are Fun!",
+      id: 3,
+      likes_count: 4,
+      message: "test delete",
     },
   ]);
 
@@ -64,17 +70,20 @@ function App() {
 
     setCardsData(cards);
   };
-
+  const deleteCard = () => {
+    const cards = cardsData.filter((card) => {
+      return card.card_id !== 3;
+    });
+  }
   return (
     <main className="App">
       <header className="App-header">
         <h1>CheerUp Inspiration Board</h1>
       </header>
       <BoardsList boardsData={boardsData}></BoardsList>
-      <CardList cardsData={cardsData} likeCard={likeCard} />
+      <CardList cardsData={cardsData} likeCard={likeCard} deleteCard={deleteCard}/>
       <NewCard />
-      <Card />
-      <NewCard />
+      
       <footer>
         <h4>Made by Anna, Larissa, Melody, Supriya </h4>
       </footer>
