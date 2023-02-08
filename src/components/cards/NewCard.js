@@ -17,8 +17,10 @@ const NewCardForm = (props) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    if (formFields.length < 1 || formFields.length > 10){
-      alert("A valid card must have between one and forty characters")
+    if (formFields.message.length > 40){
+      alert("Message cannot be over 40 characters");
+    } else if (formFields.message.length === 0){
+      alert("Message cannot be empty");
     } else {
       props.addCard(formFields.message)
       setFormFields(INITIAL_CARD_DATA);
