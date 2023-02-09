@@ -49,7 +49,15 @@ const CardList = (props) => {
     console.log(props.selectedBoard)
     const boardID = props.selectedBoard[0].id;
     console.log(boardID)
-  }
+    const boardCard = cardsData.filter((card) => card.board_id !== boardID)
+    console.log(boardCard)
+    setCardsData(boardCard)
+  } 
+  console.log(cardsData)
+
+  
+  //console.log(props.selectedBoard)
+  
   //let boardID = props.selectedBoard[0].id;
  
 
