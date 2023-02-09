@@ -6,13 +6,12 @@ const BoardsDropDown = (props) => {
     // collect selected board element
     const selectElement = document.querySelector("#selected");
     // format new board message from boardsData
-    const selectedBoardMessage = props.boardsData.map((board) => {
-      if (board.title === selectElement.value) {
-        return `${board.title} - ${board.creator}`;
-      }
-    });
-    // update selectedBoardMessage state
-    props.updateSelectedBoardMessage(selectedBoardMessage);
+    const selectedBoard = props.boardsData.filter(
+      (board) => board.title === selectElement.value
+    );
+    // update selected board state
+    props.updateSelectedBoard(selectedBoard);
+    // console.log(selectedBoard[0].id); // here's your board ID GURRRLLL!
   };
 
   // gather board titles as options in Boards Drop Down Table
@@ -43,7 +42,7 @@ BoardsDropDown.propTypes = {
       creator: PropTypes.string.isRequired,
     })
   ),
-  updateSelectedBoardMessage: PropTypes.func.isRequired,
+  updateSelectedBoard: PropTypes.func.isRequired,
 };
 
 export default BoardsDropDown;
