@@ -47,20 +47,21 @@ function App() {
       });
   };
 
-  const addCard = (message) => {
-    const newCard = {
-          id: result.data.card.id,
-          message: result.data.card.message,
-          likes_count: result.data.card.likes_count,
-          board_id: result.data.card.board_id,
-        };
-        
-        setCardsData([...cardsData, newCard], () => {
-          console.log(this.state.cardsData);
-        });
-      }
+  const addCard = newCard => {
+    const newCardList = [...cardsData];
 
-  };
+    const nextId = Math.max(...newCardList.map(card => card.id)) + 1;
+    
+    newCardList.push({
+      id: nextId,
+      message: newCard.message,
+      
+  });    
+    setCardsData(newCardList);
+      }
+      
+
+  
 
   const likeCard = () => {
     const cards = cardsData.map((card) => {
@@ -78,7 +79,7 @@ function App() {
     const newcards = cardsData.filter((card) => card.id !== 3);
     console.log(newcards);
     setCardsData(newcards);
-    return newcards;
+    
   };
 
   
@@ -133,9 +134,8 @@ function App() {
         cardsData={cardsData}
         likeCard={likeCard}
         deleteCard={deleteCard}
-        addCard={addCard}
       />
-      <NewCard />
+      <NewCard addCard={addCard} />
 
       <footer>
         <h4>Made by Anna, Larissa, Melody, Supriya </h4>
