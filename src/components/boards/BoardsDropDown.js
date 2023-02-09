@@ -11,7 +11,7 @@ const BoardsDropDown = (props) => {
     );
     // update selected board state
     props.updateSelectedBoard(selectedBoard);
-    // console.log(selectedBoard[0].id); // here's your board ID GURRRLLL!
+    //console.log(selectedBoard[0].id); // here's your board ID GURRRLLL!
   };
 
   // gather board titles as options in Boards Drop Down Table
