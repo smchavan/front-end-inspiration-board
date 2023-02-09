@@ -48,18 +48,17 @@ function App() {
       });
   };
 
-  const addCard = (message)=> {
+  const addCard = (message) => {
     const newCardList = [...cardsData];
 
-    const nextId = Math.max(...newCardList.map(card => card.id)) + 1;
-    
+    const nextId = Math.max(...newCardList.map((card) => card.id)) + 1;
+
     newCardList.push({
       id: nextId,
       message: message,
-      
-  });    
+    });
     setCardsData(newCardList);
-      }
+  };
 
   const likeCard = () => {
     const cards = cardsData.map((card) => {
@@ -78,7 +77,6 @@ function App() {
     const newcards = cardsData.filter((card) => card.id !== 3);
     console.log(newcards);
     setCardsData(newcards);
-    
   };
 
 
@@ -110,12 +108,10 @@ function App() {
   };
 
   // selected boards message
-  const [selectedBoardMessage, setSelectedBoardMessage] = useState(
-    "Select a Board from the Board List!"
-  );
+  const [selectedBoard, setSelectedBoard] = useState();
   // function to update selected board message
-  const updateSelectedBoardMessage = (message) => {
-    setSelectedBoardMessage(message);
+  const updateSelectedBoard = (selectedBoard) => {
+    setSelectedBoard(selectedBoard);
   };
 
   return (
@@ -129,21 +125,20 @@ function App() {
         </header>
         <BoardsDropDown
           boardsData={boardsData}
-          updateSelectedBoardMessage={updateSelectedBoardMessage}
+          updateSelectedBoard={updateSelectedBoard}
         ></BoardsDropDown>
         <header>
           <h3>Selected Board</h3>
         </header>
-        <SelectedBoard
-          selectedBoardMessage={selectedBoardMessage}
-        ></SelectedBoard>
+        <SelectedBoard selectedBoard={selectedBoard}></SelectedBoard>
         <header>
           <h3>Create a New Board</h3>
         </header>
         <NewBoardForm updateBoardsData={updateBoardsData}></NewBoardForm>
       </section>
-      <ShowCard/>
+      <ShowCard />
       <CardList
+        selectedBoard={selectedBoard}
         cardsData={cardsData}
         likeCard={likeCard}
         deleteCard={deleteCard}
