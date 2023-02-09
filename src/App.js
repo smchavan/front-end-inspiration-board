@@ -81,6 +81,7 @@ function App() {
     
   };
 
+
   // ~~~~~~ boards data ~~~~~~
   const [boardsData, setBoardsData] = useState([]);
   // function to initialize boards data upon mounting
