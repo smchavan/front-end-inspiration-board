@@ -49,17 +49,15 @@ function App() {
 
   const addCard = (message) => {
     const newCard = {
-          id: result.data.card.id,
-          message: result.data.card.message,
-          likes_count: result.data.card.likes_count,
-          board_id: result.data.card.board_id,
-        };
-        
-        setCardsData([...cardsData, newCard], () => {
-          console.log(this.state.cardsData);
-        });
-      }
+      id: result.data.card.id,
+      message: result.data.card.message,
+      likes_count: result.data.card.likes_count,
+      board_id: result.data.card.board_id,
+    };
 
+    setCardsData([...cardsData, newCard], () => {
+      console.log(this.state.cardsData);
+    });
   };
 
   const likeCard = () => {
@@ -74,6 +72,7 @@ function App() {
 
     setCardsData(cards);
   };
+
   const deleteCard = () => {
     const newcards = cardsData.filter((card) => card.id !== 3);
     console.log(newcards);
@@ -81,11 +80,9 @@ function App() {
     return newcards;
   };
 
-  
-
-  // boards data
+  // ~~~~~~ boards data ~~~~~~
   const [boardsData, setBoardsData] = useState([]);
-
+  // function to initialize boards data upon mounting
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
@@ -96,11 +93,25 @@ function App() {
         console.error(error.response.data.message);
       });
   }, []);
+  // function to update boards data upon form submission
+  const updateBoardsData = (newBoard) => {
+    // duplicate boardsData
+    const newBoardsData = [...boardsData];
+    // find next valid board id
+    const nextID = Math.max(...newBoardsData.map((board) => board.id)) + 1;
+    newBoardsData.push({
+      id: nextID,
+      title: newBoard.title,
+      creator: newBoard.creator,
+    });
+    setBoardsData(newBoardsData);
+  };
 
-  // selected boards data
+  // selected boards message
   const [selectedBoardMessage, setSelectedBoardMessage] = useState(
     "Select a Board from the Board List!"
   );
+  // function to update selected board message
   const updateSelectedBoardMessage = (message) => {
     setSelectedBoardMessage(message);
   };
@@ -127,7 +138,7 @@ function App() {
         <header>
           <h3>Create a New Board</h3>
         </header>
-        <NewBoardForm></NewBoardForm>
+        <NewBoardForm updateBoardsData={updateBoardsData}></NewBoardForm>
       </section>
       <CardList
         cardsData={cardsData}
@@ -136,7 +147,6 @@ function App() {
         addCard={addCard}
       />
       <NewCard />
-
       <footer>
         <h4>Made by Anna, Larissa, Melody, Supriya </h4>
       </footer>
