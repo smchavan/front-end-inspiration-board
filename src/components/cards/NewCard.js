@@ -1,5 +1,5 @@
 //import PropTypes from "prop-types";
-import { useState } from "react";
+import  React,{ useState } from "react";
 import "./NewCard.css"
 
 const INITIAL_CARD_DATA = {
