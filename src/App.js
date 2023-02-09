@@ -48,14 +48,14 @@ function App() {
       });
   };
 
-  const addCard = newCard => {
+  const addCard = (message)=> {
     const newCardList = [...cardsData];
 
     const nextId = Math.max(...newCardList.map(card => card.id)) + 1;
     
     newCardList.push({
       id: nextId,
-      message: newCard.message,
+      message: message,
       
   });    
     setCardsData(newCardList);
