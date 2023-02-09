@@ -8,6 +8,7 @@ import NewBoardForm from "./components/boards/NewBoardForm";
 //import CardList from './components/cards/CardList'
 import axios from "axios";
 import CardList from "./components/cards/CardList";
+import ShowCard from "./components/cards/ShowCard";
 
 function App() {
   // cards data
@@ -59,7 +60,7 @@ function App() {
   });    
     setCardsData(newCardList);
       }
-      
+
 
   
 
@@ -130,6 +131,7 @@ function App() {
         </header>
         <NewBoardForm></NewBoardForm>
       </section>
+      <ShowCard/>
       <CardList
         cardsData={cardsData}
         likeCard={likeCard}
