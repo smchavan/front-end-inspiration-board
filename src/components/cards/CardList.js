@@ -6,9 +6,9 @@ import NewCard from "./NewCard";
 import axios from "axios";
 
 const CardList = (props) => {
-  const selectedBoardId = props.selectedBoard ? props.selectedBoard.id: null
+  //const selectedBoardId = props.selectedBoard ? props.selectedBoard[0].id: null
   //console.log(props.selectedBoard ? props.selectedBoard.id: null)
-  console.log(selectedBoardId )
+  //console.log(selectedBoardId )
   //if (props.selectedBoard !== undefined) {
     //console.log(props.selectedBoard)
     ////const boardID = props.selectedBoard[0].id;
@@ -33,11 +33,11 @@ const CardList = (props) => {
   //   useEffect(() =>{
   //     getBoardCard(selectedBoardId);
   //   }, [props.selectedBoard]);
-  if (selectedBoardId !== null){
+  if (props.selectedBoardID!== null){
     return (
       <>
         <div>
-          {props.cardsData.filter((card) => card.board_id === selectedBoardId).map((card) => (
+          {props.cardsData.filter((card) => card.board_id === props.selectedBoardID).map((card) => (
             <Card
               key={card.id}
               card_id={card.id}
