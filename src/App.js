@@ -47,6 +47,21 @@ function App() {
       });
   };
 
+  const addCard = (message) => {
+    const newCard = {
+          id: result.data.card.id,
+          message: result.data.card.message,
+          likes_count: result.data.card.likes_count,
+          board_id: result.data.card.board_id,
+        };
+        
+        setCardsData([...cardsData, newCard], () => {
+          console.log(this.state.cardsData);
+        });
+      }
+
+  };
+
   const likeCard = () => {
     const cards = cardsData.map((card) => {
       if (card.id === 2) {
@@ -60,10 +75,14 @@ function App() {
     setCardsData(cards);
   };
   const deleteCard = () => {
-    const cards = cardsData.filter((card) => {
-      return card.card_id !== 3;
-    });
+    const newcards = cardsData.filter((card) => card.id !== 3);
+    console.log(newcards);
+    setCardsData(newcards);
+    return newcards;
   };
+
+  
+
   // boards data
   const [boardsData, setBoardsData] = useState([]);
 
@@ -110,7 +129,12 @@ function App() {
         </header>
         <NewBoardForm></NewBoardForm>
       </section>
-      <CardList cardsData={cardsData} likeCard={likeCard} />
+      <CardList
+        cardsData={cardsData}
+        likeCard={likeCard}
+        deleteCard={deleteCard}
+        addCard={addCard}
+      />
       <NewCard />
 
       <footer>
