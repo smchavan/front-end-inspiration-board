@@ -10,7 +10,7 @@ const Card = (props) =>{
 
   const onDeleteButtonClick =() =>{
     console.log(props.card_id);
-    props.deleteCard();
+    props.deleteCard(props.card_id);
   };
 
   return (
