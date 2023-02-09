@@ -10,6 +10,104 @@ import CardList from "./components/cards/CardList";
 import ShowCard from "./components/cards/ShowCard";
 
 function App() {
+
+
+  const [cardsData, setCardsData] = useState([]);
+      // {
+      //   board_id: 1,
+      //   board_title: "Legos are Fun!",
+      //   id: 1,
+      //   likes_count: 3,
+      //   message: "Lego Lego Lego Fun",
+      // },
+      // {
+      //   board_id: 2,
+      //   board_title: "Legos are Fun!",
+      //   id: 2,
+      //   likes_count: 4,
+      //   message: "Puzzles are also Fun like Legos",
+      // },
+      // {
+      //   board_id: 3,
+      //   board_title: "test delete",
+      //   id: 3,
+      //   likes_count: 4,
+      //   message: "test delete",
+      // },
+      // {
+      //   board_id: 4,
+      //   board_title: "board 4",
+      //   id: 4,
+      //   likes_count: 4,
+      //   message: "board 4",
+      // },
+      // {
+      //   board_id: 1,
+      //   board_title: "Legos are Fun!",
+      //   id: 5,
+      //   likes_count: 4,
+      //   message: "board1",
+      // },
+    
+  const getBoardCard = async (boardId) =>{
+    return axios
+            .get(
+            `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/cards`,
+            {}
+          )
+    
+          .then((response) => {return response.data})
+          .catch((error) => {
+            console.log(error);
+          });
+        };
+    
+  useEffect(() =>{
+    getBoardCard(selectedBoard.id);
+        }, [BoardsDropDown]);
+      
+  const addCard = (message) => {
+    const newCardList = [...cardsData];
+  
+    const nextId = Math.max(...newCardList.map((card) => card.id)) + 1;
+  
+    newCardList.push({
+        id: nextId,
+        message: message,
+      });
+    setCardsData(newCardList);
+    };
+
+  const likeCard = (card_id) => {
+    const card = cardsData.map((card) => {
+      if (card.id === card_id) {
+        card.likes_count += 1;
+        return card;
+      } else {
+        return card;
+        }
+    });
+  
+    setCardsData(card);
+    };
+  
+  const deleteCard = (card_id) => {
+    const newcards = cardsData.filter((card) => card.id !== card_id );
+    console.log(newcards);
+    setCardsData(newcards);
+  };  
+
+  const handleDelete = (cardId) => {
+    axios
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${cardId}`)
+      .then(() => {
+        setCardsData((prevCards) => prevCards.filter((card) => card.id !== cardId));
+        })
+      .catch((error) => {
+        console.log(error);
+        });
+    };
+  
   // ~~~~~~ boards data ~~~~~~
   const [boardsData, setBoardsData] = useState([]);
   // function to initialize boards data upon mounting
@@ -71,10 +169,10 @@ function App() {
       <ShowCard />
       <CardList
         selectedBoard={selectedBoard}
-        //cardsData={cardsData}
-        //likeCard={likeCard}
-        //deleteCard={deleteCard}
-        //addCard={addCard}
+        cardsData={cardsData}
+        likeCard={likeCard}
+        deleteCard={deleteCard}
+        addCard={addCard}
         //getBoardCards={getBoardCards}
       />
       <footer>
