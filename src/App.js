@@ -43,44 +43,44 @@ const registerNewBoard = (newBoard) => {
 
 function App() {
 
-
-  const [cardsData, setCardsData] = useState([
-      {
-        board_id: 1,
-        board_title: "Legos are Fun!",
-        id: 1,
-        likes_count: 3,
-        message: "Lego Lego Lego Fun",
-      },
-      {
-        board_id: 2,
-        board_title: "Legos are Fun!",
-        id: 2,
-        likes_count: 4,
-        message: "Puzzles are also Fun like Legos",
-      },
-      {
-        board_id: 3,
-        board_title: "test delete",
-        id: 3,
-        likes_count: 4,
-        message: "test delete",
-      },
-      {
-        board_id: 4,
-        board_title: "board 4",
-        id: 4,
-        likes_count: 4,
-        message: "board 4",
-      },
-      {
-        board_id: 1,
-        board_title: "Legos are Fun!",
-        id: 5,
-        likes_count: 4,
-        message: "board1",
-      },
-    ])
+  const [selectedBoardID, setSelectedBoardID] = useState(1);
+  const [cardsData, setCardsData] = useState([])
+      // {
+      //   board_id: 1,
+      //   board_title: "Legos are Fun!",
+      //   id: 1,
+      //   likes_count: 3,
+      //   message: "Lego Lego Lego Fun",
+      // },
+      // {
+      //   board_id: 2,
+      //   board_title: "Legos are Fun!",
+      //   id: 2,
+      //   likes_count: 4,
+      //   message: "Puzzles are also Fun like Legos",
+      // },
+      // {
+      //   board_id: 3,
+      //   board_title: "test delete",
+      //   id: 3,
+      //   likes_count: 4,
+      //   message: "test delete",
+      // },
+      // {
+      //   board_id: 4,
+      //   board_title: "board 4",
+      //   id: 4,
+      //   likes_count: 4,
+      //   message: "board 4",
+      // },
+      // {
+      //   board_id: 1,
+      //   board_title: "Legos are Fun!",
+      //   id: 5,
+      //   likes_count: 4,
+      //   message: "board1",
+      // },
+  
     
   const getBoardCard = async (boardId) =>{
     return axios
@@ -97,7 +97,7 @@ function App() {
     
   useEffect(() =>{
     getBoardCard(selectedBoardID);
-        }, [BoardsDropDown]);
+        }, [selectedBoardID]);
       
   const addCard = (message) => {
     const newCardList = [...cardsData];
