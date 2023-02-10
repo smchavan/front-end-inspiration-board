@@ -14,7 +14,7 @@ import ShowCard from "./components/cards/ShowCard";
 // Function for sending get requests
 const getAllBoards = () => {
   return axios
-    .get(`https://inspo-board-api-cheerup.herokuapp.com/boards`)
+    .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
     .then((response) => {
       return response.data;
     })
@@ -87,7 +87,7 @@ function App() {
   const getBoardCard = async (boardId) =>{
     return axios
             .get(
-            `https://inspo-board-api-cheerup.herokuapp.com/boards/${selectedBoardID}/cards`,
+              `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
             {}
           )
     
@@ -99,7 +99,7 @@ function App() {
     
   useEffect(() =>{
     getBoardCard(selectedBoardID);
-        }, [BoardsDropDown]);
+        }, [selectedBoardID]);
       
   const addCard = (message) => {
     const newCardList = [...cardsData];
