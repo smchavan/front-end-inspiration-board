@@ -17,7 +17,7 @@ const NewCardForm = (props) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    if (formFields.message.length > 10){
+    if (formFields.message.length > 40){
       alert("Message cannot be over 40 characters");
     } else if (formFields.message.length === 0){
       alert("Message cannot be empty");

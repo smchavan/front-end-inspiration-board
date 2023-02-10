@@ -7,7 +7,6 @@ import NewBoardForm from "./components/boards/NewBoardForm";
 
 import axios from "axios";
 import CardList from "./components/cards/CardList";
-import ShowCard from "./components/cards/ShowCard";
 
 
 // ~~~~~~ Helper Functions ~~~~~~
@@ -45,44 +44,8 @@ function App() {
 
   const [boardsData, setBoardsData] = useState([]);
   const [selectedBoardID, setSelectedBoardID] = useState(1);
-
-  const [cardsData, setCardsData] = useState([
-      {
-        board_id: 1,
-        board_title: "Legos are Fun!",
-        id: 1,
-        likes_count: 3,
-        message: "Lego Lego Lego Fun",
-      },
-      {
-        board_id: 2,
-        board_title: "Legos are Fun!",
-        id: 2,
-        likes_count: 4,
-        message: "Puzzles are also Fun like Legos",
-      },
-      {
-        board_id: 3,
-        board_title: "test delete",
-        id: 3,
-        likes_count: 4,
-        message: "test delete",
-      },
-      {
-        board_id: 4,
-        board_title: "board 4",
-        id: 4,
-        likes_count: 4,
-        message: "board 4",
-      },
-      {
-        board_id: 1,
-        board_title: "Legos are Fun!",
-        id: 5,
-        likes_count: 4,
-        message: "board1",
-      },
-    ])
+  const [cardsData, setCardsData] = useState([])
+      
     
   const getBoardCard = async (boardId) =>{
     return axios
@@ -91,7 +54,11 @@ function App() {
             {}
           )
     
-          .then((response) => {return response.data})
+          .then((response) => {
+            //return response.data
+            setCardsData(response.data)})
+          //console.log (response.data)
+          
           .catch((error) => {
             console.log(error);
           });
@@ -100,22 +67,41 @@ function App() {
   useEffect(() =>{
     getBoardCard(selectedBoardID);
         }, [selectedBoardID]);
-      
   const addCard = (message) => {
-    const newCardList = [...cardsData];
-  
-    const nextId = Math.max(...newCardList.map((card) => card.id)) + 1;
-  
-    newCardList.push({
-        id: nextId,
-        message: message,
-        board_id:selectedBoardID,
-        likes_count:0
-
-
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
+        {
+          
+          message: message,
+          likes_count: 0,
+          board_id:selectedBoardID
+        }
+      )
+      .then((response) => {
+        const newCardList = [...cardsData];
+        newCardList.push(response.data);
+        setCardsData(newCardList);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
       });
-    setCardsData(newCardList);
-    };
+  };   
+  // const addCard = (message) => {
+  //   const newCardList = [...cardsData];
+  
+  //   const nextId = Math.max(...newCardList.map((card) => card.id)) + 1;
+  
+  //   newCardList.push({
+  //       id: nextId,
+  //       message: message,
+  //       board_id:selectedBoardID,
+  //       likes_count:0
+
+
+  //     });
+  //   setCardsData(newCardList);
+  //   };
 
   const likeCard = (card_id) => {
     const card = cardsData.map((card) => {
@@ -130,13 +116,13 @@ function App() {
     setCardsData(card);
     };
   
-  const deleteCard = (card_id) => {
-    const newcards = cardsData.filter((card) => card.id !== card_id );
-    console.log(newcards);
-    setCardsData(newcards);
-  };  
+  // const deleteCard = (card_id) => {
+  //   const newcards = cardsData.filter((card) => card.id !== card_id );
+  //   console.log(newcards);
+  //   setCardsData(newcards);
+  // };  
 
-  const handleDelete = (cardId) => {
+  const deleteCard = (cardId) => {
     axios
       .delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${cardId}`)
       .then(() => {
@@ -147,41 +133,8 @@ function App() {
         });
     };
   
-  // ~~~~~~ boards data ~~~~~~
-  // const [boardsData, setBoardsData] = useState([]);
-  // // function to initialize boards data upon mounting
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
-  //     .then((response) => {
-  //       setBoardsData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error.response.data.message);
-  //     });
-  // }, []);
-  // // function to update boards data upon form submission
-  // const updateBoardsData = (newBoard) => {
-  //   // duplicate boardsData
-  //   const newBoardsData = [...boardsData];
-  //   // find next valid board id
-  //   const nextID = Math.max(...newBoardsData.map((board) => board.id)) + 1;
-  //   newBoardsData.push({
-  //     id: nextID,
-  //     title: newBoard.title,
-  //     creator: newBoard.creator,
-  //   });
-  //   setBoardsData(newBoardsData);
-  // };
-
-  // // selected boards message
-  // const [selectedBoard, setSelectedBoard] = useState([]);
-  // // function to update selected board message
-  // const updateSelectedBoard = (selectedBoard) => {
-  //   setSelectedBoard(selectedBoard);
-  //   console.log(selectedBoard);
-  //   //console.log(selectedBoard[0])
-  // };
+  
+ 
   // ~~~~~~ boards data ~~~~~~
   //const [boardsData, setBoardsData] = useState([]);
   // function to make get request whenever boardsData gets modified
@@ -206,6 +159,7 @@ function App() {
     });
     setBoardsData(newBoardsData);
   };
+
 
   // state to track selected board id
   //const [selectedBoardID, setSelectedBoardID] = useState(1);
@@ -246,7 +200,6 @@ function App() {
         </header>
         <NewBoardForm updateBoardsData={updateBoardsData}></NewBoardForm>
       </section>
-      <ShowCard />
       <CardList
         selectedBoardID={selectedBoardID}
         cardsData={cardsData}
