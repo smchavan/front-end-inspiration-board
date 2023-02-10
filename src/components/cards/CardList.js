@@ -6,6 +6,7 @@ import NewCard from "./NewCard";
 import axios from "axios";
 
 const CardList = (props) => {
+  console.log(props.cardsData)
   //const selectedBoardId = props.selectedBoard ? props.selectedBoard[0].id: null
   //console.log(props.selectedBoard ? props.selectedBoard.id: null)
   //console.log(selectedBoardId )
@@ -56,26 +57,26 @@ const CardList = (props) => {
     );
   }
   
-  return (
-    <>
-      <div>
-        {props.cardsData.map((card) => (
-          <Card
-            key={card.id}
-            card_id={card.id}
-            board_id={card.board_id}
-            likes_count={card.likes_count}
-            message={card.message}
-            likeCard={props.likeCard}
-            deleteCard={props.deleteCard}
-          />
-        ))}
-      </div>
-      <div>
-        <NewCard addCard={props.addCard} />
-      </div>
-    </>
-  );
+  // return (
+  //   <>
+  //     <div>
+  //       {props.cardsData.map((card) => (
+  //         <Card
+  //           key={card.id}
+  //           card_id={card.id}
+  //           board_id={card.board_id}
+  //           likes_count={card.likes_count}
+  //           message={card.message}
+  //           likeCard={props.likeCard}
+  //           deleteCard={props.deleteCard}
+  //         />
+  //       ))}
+  //     </div>
+  //     <div>
+  //       <NewCard addCard={props.addCard} />
+  //     </div>
+  //   </>
+  // );
 };
 
 export default CardList;
