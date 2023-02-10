@@ -14,7 +14,7 @@ import ShowCard from "./components/cards/ShowCard";
 // Function for sending get requests
 const getAllBoards = () => {
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_URL}/boards`)
+    .get(`https://inspo-board-api-cheerup.herokuapp.com/boards`)
     .then((response) => {
       return response.data;
     })
@@ -43,6 +43,8 @@ const registerNewBoard = (newBoard) => {
 
 function App() {
 
+  const [boardsData, setBoardsData] = useState([]);
+  const [selectedBoardID, setSelectedBoardID] = useState(1);
 
   const [cardsData, setCardsData] = useState([
       {
@@ -85,7 +87,7 @@ function App() {
   const getBoardCard = async (boardId) =>{
     return axios
             .get(
-            `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoardID}/cards`,
+            `https://inspo-board-api-cheerup.herokuapp.com/boards/${selectedBoardID}/cards`,
             {}
           )
     
@@ -181,7 +183,7 @@ function App() {
   //   //console.log(selectedBoard[0])
   // };
   // ~~~~~~ boards data ~~~~~~
-  const [boardsData, setBoardsData] = useState([]);
+  //const [boardsData, setBoardsData] = useState([]);
   // function to make get request whenever boardsData gets modified
   useEffect(() => {
     getAllBoards().then((boards) => {
@@ -206,11 +208,18 @@ function App() {
   };
 
   // state to track selected board id
-  const [selectedBoardID, setSelectedBoardID] = useState(1);
+  //const [selectedBoardID, setSelectedBoardID] = useState(1);
   // function to update selected board state id
   const updateSelectedBoard = (selectedBoardElementID) => {
     setSelectedBoardID(selectedBoardElementID);
   };
+
+  const getSelectedBoard = () => {
+    const selectedBoard = boardsData.filter(
+      (board) => board.id === selectedBoardID
+    );
+    return selectedBoard[0];
+  }
 
   return (
     <main className="App">
@@ -229,8 +238,8 @@ function App() {
           <h3>Selected Board</h3>
         </header>
         <SelectedBoard
-          selectedBoardID={selectedBoardID}
-          boardsData={boardsData}
+          //selectedBoardID={selectedBoardID}
+          selectedBoardData={getSelectedBoard(boardsData)}
         ></SelectedBoard>
         <header>
           <h3>Create a New Board</h3>
