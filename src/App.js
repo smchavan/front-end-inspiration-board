@@ -153,13 +153,13 @@ function App() {
     setCardsData(card);
     };
   
-  const deleteCard = (card_id) => {
-    const newcards = cardsData.filter((card) => card.id !== card_id );
-    console.log(newcards);
-    setCardsData(newcards);
-  };  
+  // const deleteCard = (card_id) => {
+  //   const newcards = cardsData.filter((card) => card.id !== card_id );
+  //   console.log(newcards);
+  //   setCardsData(newcards);
+  // };  
 
-  const handleDelete = (cardId) => {
+  const deleteCard = (cardId) => {
     axios
       .delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${cardId}`)
       .then(() => {
